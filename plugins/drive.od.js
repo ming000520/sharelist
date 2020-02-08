@@ -146,7 +146,12 @@ module.exports = ({ request , cache , getConfig , querystring , datetime }) => {
       r = (r.items || [r.item])[0]
       children = r.folder ? r.folder.children.map((i) => {
         let ext = i.extension ? i.extension.replace(/\./g, '') : ''
-        
+        let d1 = d2 = (new Date).toISOString();
+    
+        try {
+          d1 = datetime(i.displayCreationDate.replace(/\//g, '-'));
+          d2 = datetime(i.displayModifiedDate.replace(/\//g, '-'));
+        } catch (e){}
         return {
           id: i.id,
           name: i.name + (i.folder ? '' : i.extension),
@@ -154,8 +159,8 @@ module.exports = ({ request , cache , getConfig , querystring , datetime }) => {
           protocol: defaultProtocol,
           parent: i.parentId,
           mime: i.mimeType,
-          created_at: datetime(i.displayCreationDate.replace(/\//g, '-')),
-          updated_at: datetime(i.displayModifiedDate.replace(/\//g, '-')),
+          created_at: d1,
+          updated_at: d2,
           size: parseInt(i.size),
           type: i.folder ? 'folder' : undefined,
 
