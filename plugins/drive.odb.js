@@ -110,7 +110,7 @@ module.exports = ({ request, cache, getConfig , datetime }) => {
         ext: i['.fileType'],
         protocol: defaultProtocol,
         created_at: '-',
-        updated_at: datetime(i.Modified.replace(/\//g,'-')),
+        updated_at: datetime(i['Modified.'].replace(/\//g,'-')),
         size: i.FileSizeDisplay,
         type: i.FSObjType == '1' ? 'folder' : undefined,
       }
